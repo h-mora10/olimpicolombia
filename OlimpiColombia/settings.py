@@ -74,8 +74,8 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-#Credenciales para conectarse a la base de datos de PostgreSQL, no subir cambios en esta conexión al repositorio.
-#Pueden comentarearlos localmente para dejar la configuración de cada base local.
+#Credenciales para conectarse a la base de datos de PostgreSQL, no subir cambios en esta conexion al repositorio.
+#Pueden comentarearlos localmente para dejar la configuracion de cada base local.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
