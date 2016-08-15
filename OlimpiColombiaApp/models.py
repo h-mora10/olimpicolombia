@@ -53,3 +53,42 @@ class Sportman(models.Model):
             self.first_name,
             self.last_name,
         ])
+
+
+class Sport(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+    )
+
+    def __str__(self):
+
+        return ' '.join([
+            self.name,
+        ])
+
+
+class Event(models.Model):
+
+    date = models.DateField()
+    time = models.TimeField()
+    sport_event = models.CharField(
+        max_length=400,
+    )
+    athlete = models.ForeignKey(Sportman)
+    sport = models.ForeignKey(Sport)
+    result = models.CharField(
+        max_length=255,
+    )
+    video = models.FileField()
+
+    def __str__(self):
+
+        return ' '.join([
+            self.date,
+            self.time,
+            self.sport_event,
+            self.athlete,
+            self.sport,
+            self.result
+        ])
