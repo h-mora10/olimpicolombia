@@ -22,7 +22,7 @@ class Coach(models.Model):
         ])
 
 
-class Sportman(models.Model):
+class Athlete(models.Model):
 
     first_name = models.CharField(
         max_length=255,
@@ -75,7 +75,7 @@ class Event(models.Model):
     sport_event = models.CharField(
         max_length=400,
     )
-    athlete = models.ForeignKey(Sportman)
+    athlete = models.ForeignKey(Athlete)
     sport = models.ForeignKey(Sport)
     result = models.CharField(
         max_length=255,
