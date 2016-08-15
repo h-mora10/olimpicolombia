@@ -9,5 +9,5 @@ from OlimpiColombiaApp.models import *
 
 def index(request):
     #ToDo write a seed file
-    sports = Sport.objects.order_by(('name').asc())
+    sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
