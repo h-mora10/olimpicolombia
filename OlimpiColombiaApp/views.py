@@ -11,3 +11,6 @@ def index(request):
     #ToDo write a seed file
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
+def test(request):
+    return render(request, 'OlimpiColombiaApp/test.html',)
+
