@@ -12,5 +12,5 @@ def index(request):
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 def test(request):
-    return render(request, 'OlimpiColombiaApp/test.html',)
+    return render(request, 'OlimpiColombiaApp/index.html', )
 
