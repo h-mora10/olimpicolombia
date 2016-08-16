@@ -79,13 +79,14 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'dv5rc0rhhuv0',
-        # 'HOST': 'ec2-54-235-132-192.compute-1.amazonaws.com',
-        # 'USER': 'evvkgtrlahybrv',
-        # 'PASSWORD': 'a8d6dd1-ZX7wphhHHlwMxGnpb4',
-        'NAME': 'OlimpiColombia',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'dv5rc0rhhuv0',
+        'HOST': 'ec2-54-235-132-192.compute-1.amazonaws.com',
+        'USER': 'evvkgtrlahybrv',
+        'PASSWORD': 'a8d6dd1-ZX7wphhHHlwMxGnpb4',
+        # 'NAME': 'OlimpiColombia',
+        # 'HOST': 'localhost',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '12345678',
     }
 }
 

@@ -1,5 +1,6 @@
 Django==1.10
 fake-factory==0.6.0
+Pillow==3.3.0
 psycopg2==2.6.1
 python-dateutil==2.5.3
 six==1.10.0

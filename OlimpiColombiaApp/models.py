@@ -60,6 +60,9 @@ class Sport(models.Model):
     name = models.CharField(
         max_length=255,
     )
+    img_url = models.ImageField(
+        null=True,
+    )
 
     def __str__(self):
 
