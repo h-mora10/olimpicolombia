@@ -66,9 +66,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Page Heading
-                    <small>Secondary Text</small>
-                </h1>
+                <h1 class="page-header">Olimpi Colombia</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -78,9 +76,10 @@
          {% for sports in sports %}
 
                 <div class="col-md-3 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src={{ sports.img_url}} alt="{{ sports.name }}">
-                </a>
+                    <a href="#">
+                        <img class="img-responsive" src={{ sports.img_url}} alt="{{ sports.name }}">
+                    </a>
+                    <h4>{{ sports.name  }}</h4>
                 </div>
 
              {% empty %}
