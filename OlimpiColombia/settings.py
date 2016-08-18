@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import dj_database_url
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,18 +78,21 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 #Credenciales para conectarse a la base de datos de PostgreSQL, no subir cambios en esta conexion al repositorio.
 #Pueden comentarearlos localmente para dejar la configuracion de cada base local.
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'dv5rc0rhhuv0',
-         'HOST': 'ec2-54-235-132-192.compute-1.amazonaws.com',
-        'USER': 'evvkgtrlahybrv',
-         'PASSWORD': 'a8d6dd1-ZX7wphhHHlwMxGnpb4',
-       # 'NAME': 'OlimpiColombia',
-        #'HOST': 'localhost',
-        #'PORT': '', 
-    }
-}
+
+
+####Production
+DATABASES = {'default': dj_database_url.config(default= os.environ['DATABASE_URL'])}
+
+
+#####Developement
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        # 'NAME': 'OlimpiColombia',
+#        #  'HOST': 'localhost',
+#        #  'PORT': '',
+#     }
+# }
 
 
 # Password validation
