@@ -22,38 +22,6 @@ class Coach(models.Model):
         ])
 
 
-class Athlete(models.Model):
-
-    first_name = models.CharField(
-        max_length=255,
-    )
-    last_name = models.CharField(
-        max_length=255,
-
-    )
-    birth_place = models.CharField(
-        max_length=400,
-
-    )
-    birth_date = models.DateField()
-
-    weight = models.FloatField()
-    height  = models.FloatField()
-
-    coach = models.ForeignKey(Coach)
-
-    def age(self):
-        born = self.birth_date
-        today = date.today()
-        return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
-
-    def __str__(self):
-
-        return ' '.join([
-            self.first_name,
-            self.last_name,
-        ])
-
 
 class Sport(models.Model):
 
@@ -71,14 +39,13 @@ class Sport(models.Model):
         ])
 
 
-class Event(models.Model):
+class SportEvent(models.Model):
 
     date = models.DateField()
     time = models.TimeField()
     sport_event = models.CharField(
         max_length=400,
     )
-    athlete = models.ForeignKey(Athlete)
     sport = models.ForeignKey(Sport)
     result = models.CharField(
         max_length=255,
@@ -94,4 +61,42 @@ class Event(models.Model):
             self.athlete,
             self.sport,
             self.result
+        ])
+    
+
+class Athlete(models.Model):
+    img_url = models.ImageField(
+        null=True,
+    )
+    sport = models.ForeignKey(Sport)
+    sportevents = models.ManyToManyField(SportEvent)
+    first_name = models.CharField(
+        max_length=255,
+    )
+    last_name = models.CharField(
+        max_length=255,
+
+    )
+    birth_place = models.CharField(
+        max_length=400,
+
+    )
+    birth_date = models.DateField()
+
+    weight = models.FloatField()
+    height = models.FloatField()
+
+    coach = models.ForeignKey(Coach)
+
+    def age(self):
+        born = self.birth_date
+        today = date.today()
+        return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
+
+    def __str__(self):
+
+        return ' '.join([
+            self.first_name,
+            self.last_name,
+            self.sport,
         ])

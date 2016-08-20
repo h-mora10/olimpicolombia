@@ -13,6 +13,7 @@ sports_list = [
     'Synchronized swimming', 'Table tennis', 'Taekwondo', 'Tennis', 'Trampoline', 'Triathlon',
     'Volleyball', 'Water polo', 'Weightlifting', 'Wrestling'
 ]
+
 def create_Sports():
     for sport_item in sports_list:
         sport = Sport(
