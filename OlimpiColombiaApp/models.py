@@ -39,37 +39,11 @@ class Sport(models.Model):
         ])
 
 
-class SportEvent(models.Model):
-
-    date = models.DateField()
-    time = models.TimeField()
-    sport_event = models.CharField(
-        max_length=400,
-    )
-    sport = models.ForeignKey(Sport)
-    result = models.CharField(
-        max_length=255,
-    )
-    video = models.FileField()
-
-    def __str__(self):
-
-        return ' '.join([
-            self.date,
-            self.time,
-            self.sport_event,
-            self.athlete,
-            self.sport,
-            self.result
-        ])
-    
-
 class Athlete(models.Model):
     img_url = models.ImageField(
         null=True,
     )
     sport = models.ForeignKey(Sport)
-    sportevents = models.ManyToManyField(SportEvent)
     first_name = models.CharField(
         max_length=255,
     )
@@ -98,4 +72,40 @@ class Athlete(models.Model):
         return ' '.join([
             self.first_name,
             self.last_name,
+            self.sport.name,
         ])
+
+
+class SportEvent(models.Model):
+    athletes = models.ManyToManyField(Athlete, blank=True, null=True)
+
+    date = models.DateField()
+    time = models.TimeField()
+    sport_event = models.CharField(
+        max_length=400,
+    )
+    sport = models.ForeignKey(Sport)
+    result = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+    video = models.FileField(
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+
+        return ' '.join([
+            '{:%m/%d/%Y}'.format(self.date),
+            self.sport_event,
+            self.result
+        ])
+
+    def save(self, *args, **kwargs):
+        if not self.result:
+            self.result = None
+        if not self.video:
+            self.video = None
+        super(SportEvent, self).save(*args, **kwargs)
