@@ -39,7 +39,45 @@ class Sport(models.Model):
         ])
 
 
+class Athlete(models.Model):
+    img_url = models.ImageField(
+        null=True,
+    )
+    sport = models.ForeignKey(Sport)
+    first_name = models.CharField(
+        max_length=255,
+    )
+    last_name = models.CharField(
+        max_length=255,
+
+    )
+    birth_place = models.CharField(
+        max_length=400,
+
+    )
+    birth_date = models.DateField()
+
+    weight = models.FloatField()
+    height = models.FloatField()
+
+    coach = models.ForeignKey(Coach)
+
+    def age(self):
+        born = self.birth_date
+        today = date.today()
+        return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
+
+    def __str__(self):
+
+        return ' '.join([
+            self.first_name,
+            self.last_name,
+            self.sport.name,
+        ])
+
+
 class SportEvent(models.Model):
+    athletes = models.ManyToManyField(Athlete, blank=True, null=True)
 
     date = models.DateField()
     time = models.TimeField()
@@ -74,41 +112,3 @@ class SportEvent(models.Model):
         if not self.video:
             self.video = None
         super(SportEvent, self).save(*args, **kwargs)
-    
-
-class Athlete(models.Model):
-    img_url = models.ImageField(
-        null=True,
-    )
-    sport = models.ForeignKey(Sport)
-    sportevents = models.ManyToManyField(SportEvent, blank=True, null=True)
-    first_name = models.CharField(
-        max_length=255,
-    )
-    last_name = models.CharField(
-        max_length=255,
-
-    )
-    birth_place = models.CharField(
-        max_length=400,
-
-    )
-    birth_date = models.DateField()
-
-    weight = models.FloatField()
-    height = models.FloatField()
-
-    coach = models.ForeignKey(Coach)
-
-    def age(self):
-        born = self.birth_date
-        today = date.today()
-        return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
-
-    def __str__(self):
-
-        return ' '.join([
-            self.first_name,
-            self.last_name,
-            self.sport.name,
-        ])
