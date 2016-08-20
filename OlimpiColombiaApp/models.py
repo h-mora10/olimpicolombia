@@ -49,8 +49,13 @@ class SportEvent(models.Model):
     sport = models.ForeignKey(Sport)
     result = models.CharField(
         max_length=255,
+        null=True,
+        blank=True,
     )
-    video = models.FileField()
+    video = models.FileField(
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
 
@@ -62,6 +67,13 @@ class SportEvent(models.Model):
             self.sport,
             self.result
         ])
+
+    def save(self, *args, **kwargs):
+        if not self.result:
+            self.result = None
+        if not self.video:
+            self.video = None
+        super(SportEvent, self).save(*args, **kwargs)
     
 
 class Athlete(models.Model):
@@ -69,7 +81,7 @@ class Athlete(models.Model):
         null=True,
     )
     sport = models.ForeignKey(Sport)
-    sportevents = models.ManyToManyField(SportEvent)
+    sportevents = models.ManyToManyField(SportEvent, blank=True, null=True)
     first_name = models.CharField(
         max_length=255,
     )
@@ -98,5 +110,5 @@ class Athlete(models.Model):
         return ' '.join([
             self.first_name,
             self.last_name,
-            self.sport,
+            self.sport.name,
         ])
