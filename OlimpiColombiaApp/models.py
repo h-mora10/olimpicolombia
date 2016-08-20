@@ -98,11 +98,8 @@ class SportEvent(models.Model):
     def __str__(self):
 
         return ' '.join([
-            self.date,
-            self.time,
+            '{:%m/%d/%Y}'.format(self.date),
             self.sport_event,
-            self.athlete,
-            self.sport,
             self.result
         ])
 
