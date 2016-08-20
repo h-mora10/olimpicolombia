@@ -19,7 +19,7 @@ def sport(request,sport_id):
 
 
 def calendar(request,athlete_id):
-    athlete = Athlete.objects.get(athlete_id)
-    events = athlete.events
+    athlete = Athlete.objects.get(id=athlete_id)
+    sportevents = athlete.sportevent_set.all()
 
-    return render(request, 'OlimpiColombiaApp/calendar.html')
+    return render(request, 'OlimpiColombiaApp/calendar.html',{'athlete': athlete, 'sportevents': sportevents})
