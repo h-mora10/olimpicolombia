@@ -13,12 +13,13 @@ def index(request):
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 
 def sport(request,sportname):
-    thissport = Sport.objects.get(name=sportname)
-    athletes = Athlete.objects.filter(sport=thissport.id)
+    this_sport = Sport.objects.get(name=sportname)
+    athletes = Athlete.objects.filter(sport=this_sport.id)
     return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':sportname})
 
 
 def calendar(request,athlete_id):
     athlete = Athlete.objects.get(athlete_id)
     events = athlete.events
+
     return render(request, 'OlimpiColombiaApp/calendar.html')

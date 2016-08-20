@@ -98,5 +98,4 @@ class Athlete(models.Model):
         return ' '.join([
             self.first_name,
             self.last_name,
-            self.sport,
         ])
