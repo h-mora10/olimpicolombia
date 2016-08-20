@@ -99,8 +99,7 @@ class SportEvent(models.Model):
 
         return ' '.join([
             '{:%m/%d/%Y}'.format(self.date),
-            self.sport_event,
-            self.result
+            self.sport_event
         ])
 
     def save(self, *args, **kwargs):
