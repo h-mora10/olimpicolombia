@@ -73,13 +73,13 @@
 
         <!-- Projects Row -->
 
-         {% for sports in sports %}
-                <a href='/sport/{{ sports.id }}'>
+         {% for sport in sports %}
+                <a href='/sport/{{ sport.id }}'>
                 <div class="col-md-3 portfolio-item">
 
-                        <img class="img-responsive" src={{ sports.img_url}} alt="{{ sports.name }}">
+                        <img class="img-responsive" src={{ sport.img_url}} alt="{{ sport.name }}">
 
-                    <h4>{{ sports.name  }}</h4>
+                    <h4>{{ sport.name  }}</h4>
                 </div>
              </a>
 
