@@ -83,18 +83,18 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 
 ####Production
-# DATABASES = {'default': dj_database_url.config(default= os.environ['DATABASE_URL'])}
+DATABASES = {'default': dj_database_url.config(default= os.environ['DATABASE_URL'])}
 
 
 #####Developement
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'OlimpiColombia',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'OlimpiColombia',
+#        'HOST': 'localhost',
+#        'PORT': '',
+#    }
+#}
 
 
 # Password validation
