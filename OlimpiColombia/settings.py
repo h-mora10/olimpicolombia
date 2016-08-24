@@ -140,6 +140,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/js')
 ]
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 print ("base dir path", BASE_DIR)
 print ("static files dir path", STATICFILES_DIRS)
 print ("Project root", PROJECT_ROOT)
