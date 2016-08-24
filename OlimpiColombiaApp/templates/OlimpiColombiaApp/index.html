@@ -11,14 +11,14 @@
 
     <title>OlimpiColombia</title>
 
-    {% load static %}
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
 
     <!-- Custom CSS -->
-    <link href="{% static 'css/4-col-portfolio.css' %}"rel="stylesheet">
+    {% load static %}
+    <link href="/static/css/4-col-portfolio.css"rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -68,7 +68,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Olimpi Colombia</h1>
+                <h1 class="page-header">OlimpiColombia</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -79,9 +79,9 @@
                 <a href='/sport/{{ sport.id }}'>
                 <div class="col-md-3 portfolio-item">
 
-                        <img class="img-responsive" src={{ sport.img_url}} alt="{{ sport.name }}">
+                        <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicmedia/{{sport.img_url}}" alt="{{ sport.name }}">
 
-                    <h4>{{ sport.name  }}</h4>
+                    <h4>{{ sport.name  }}</h4>1
                 </div>
              </a>
 
@@ -109,12 +109,6 @@
 
     </div>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="../../static/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../static/js/bootstrap.min.js"></script>
 
 </body>
 

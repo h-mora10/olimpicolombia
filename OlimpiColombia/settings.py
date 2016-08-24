@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OlimpiColombiaApp',
+    'storages',
+    's3_folder_storage',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +85,7 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 
 ####Production
-DATABASES = {'default': dj_database_url.config(default= os.environ['DATABASE_URL'])}
+DATABASES = {'default': dj_database_url.config(default= 'postgres://evvkgtrlahybrv:a8d6dd1-ZX7wphhHHlwMxGnpb4@ec2-54-235-132-192.compute-1.amazonaws.com:5432/dv5rc0rhhuv0')}
 
 
 #####Developement
@@ -133,17 +135,37 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/media/'
+AWS_ACCESS_KEY_ID = 'AKIAJYQO2LN23SWCVYNQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'olimpicmedia'
+S3_BUCKET = 'olimpicmedia'
+
+#STATIC_URL = '/media/'
 STATIC_ROOT = 'staticfiles'
+STATIC_URL = 'http://olimpicmedia.s3.amazonaws.com/olimpicmedia/'
+
+
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'media'),
+#    os.path.join(BASE_DIR, 'static/js')
+#]
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),
+    os.path.join(BASE_DIR, 'olimpicmedia/athletes'),
+    os.path.join(BASE_DIR, 'olimpicmedia/sports'),
+    os.path.join(BASE_DIR, 'olimpicmedia/events'),
     os.path.join(BASE_DIR, 'static/js')
 ]
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
 
 print ("base dir path", BASE_DIR)
 print ("static files dir path", STATICFILES_DIRS)
