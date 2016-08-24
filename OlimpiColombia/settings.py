@@ -145,6 +145,7 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
 
 STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
+STATIC_S3_PATH = 'static/'
 STATIC_URL = 'http://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
 STATICFILES_DIRS = [
