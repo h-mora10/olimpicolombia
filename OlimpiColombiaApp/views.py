@@ -1,9 +1,10 @@
+from operator import attrgetter
+
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseBadRequest
 
 ## Models
-from OlimpiColombiaApp.models import *
+from .models import *
 
 # Create your views here.
 
@@ -21,5 +22,19 @@ def sport(request,sport_id):
 def calendar(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
     sportevents = athlete.sportevent_set.all()
+    sportevents = sorted(sportevents, key=attrgetter('date', 'time'), reverse=True)
 
     return render(request, 'OlimpiColombiaApp/calendar.html',{'athlete': athlete, 'sportevents': sportevents})
+
+def latest_video_src(request,athlete_id):
+    print('Entra a latest')
+    athlete = Athlete.objects.get(id=athlete_id)
+    print(athlete_id)
+    sportevents = athlete.sportevent_set.all()
+    print(sportevents)
+    sportevents = sorted(sportevents, key=attrgetter('date', 'time'), reverse=True)
+    print(sportevents)
+    for event in sportevents:
+        if event.video != None:
+            return JsonResponse({'video_url':str(event.video)})
+    return JsonResponse({'video_url': str("")})
