@@ -134,19 +134,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 # AWS S3 Credentials
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_PRELOAD_METADATA = True
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
+#AWS_PRELOAD_METADATA = True
+#AWS_QUERYSTRING_AUTH = False
+#AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
 
 STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
-STATIC_S3_PATH = 'static/'
-STATIC_URL = 'http://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+STATIC_S3_PATH = 'static'
+STATIC_ROOT = '/static/'
+STATIC_URL = os.environ.get('STATIC_URL')
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'athletes'),
@@ -154,4 +156,3 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'events'),
     os.path.join(BASE_DIR, 'static/js')
 ]
-
