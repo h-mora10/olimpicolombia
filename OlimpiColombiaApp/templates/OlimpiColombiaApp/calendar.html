@@ -17,7 +17,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <!-- Custom CSS -->
-    <link href="{% static 'css/4-col-portfolio.css' %}"rel="stylesheet">
+    <link href="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/static/css/4-col-portfolio.css"rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -68,7 +68,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Deportista: <strong>{{athlete.first_name}} {{athlete.last_name}}</strong> <img src="/{{ athlete.img_url }}" alt="DeportistaImg">
+                Deportista: <strong>{{athlete.first_name}} {{athlete.last_name}}</strong> <img src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{ athlete.img_url }}" alt="DeportistaImg">
             </h1>
         </div>
     </div>
