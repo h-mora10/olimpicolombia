@@ -151,8 +151,5 @@ STATIC_URL = os.environ.get('STATIC_URL')
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'athletes'),
-    os.path.join(BASE_DIR, 'sports'),
-    os.path.join(BASE_DIR, 'events'),
-    os.path.join(BASE_DIR, 'static/js')
+    os.path.join(BASE_DIR, 'static')
 ]

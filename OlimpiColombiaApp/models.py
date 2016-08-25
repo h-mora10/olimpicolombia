@@ -30,7 +30,7 @@ class Sport(models.Model):
     )
     img_url = models.ImageField(
         null=True,
-        upload_to='sports',
+        upload_to='static/sports',
         max_length=1000,
     )
 
@@ -44,7 +44,7 @@ class Sport(models.Model):
 class Athlete(models.Model):
     img_url = models.ImageField(
         null=True,
-        upload_to='athletes',
+        upload_to='static/athletes',
         max_length=1000,
     )
     sport = models.ForeignKey(Sport)
@@ -97,7 +97,7 @@ class SportEvent(models.Model):
     video = models.FileField(
         null=True,
         blank=True,
-        upload_to='events',
+        upload_to='static/events',
         max_length=1000,
     )
 
