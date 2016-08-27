@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 ## Models
 from .models import *
@@ -15,18 +15,6 @@ def index(request):
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            login(request, user)
-            return HttpResponseRedirect('/')
-        else:
-            return render(request, 'OlimpiColombiaApp/login.html', {'incorrect': True})
-    else:
-        return render(request, 'OlimpiColombiaApp/login.html', {})
 @login_required
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)

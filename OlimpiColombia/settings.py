@@ -30,7 +30,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
-    'localhost',
 ]
 
 
@@ -159,3 +158,6 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+#Redirect after login
+LOGIN_REDIRECT_URL='/'
