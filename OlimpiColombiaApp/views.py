@@ -15,6 +15,9 @@ def index(request):
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 
+def logout(request):
+    return render(request, 'OlimpiColombiaApp/logged_out.html',)
+
 @login_required
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
