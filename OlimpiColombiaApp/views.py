@@ -1,8 +1,10 @@
 from operator import attrgetter
-
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 
+from django.http import HttpResponseRedirect, HttpResponse
 ## Models
 from .models import *
 
@@ -13,19 +15,31 @@ def index(request):
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None and user.is_active:
+            login(request, user)
+            return HttpResponseRedirect('/')
+        else:
+            return render(request, 'OlimpiColombiaApp/login.html', {'incorrect': True})
+    else:
+        return render(request, 'OlimpiColombiaApp/login.html', {})
+@login_required
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
     athletes = Athlete.objects.filter(sport=this_sport.id)
     return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
-
-
+@login_required
 def calendar(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
     sportevents = athlete.sportevent_set.all()
     sportevents = sorted(sportevents, key=attrgetter('date', 'time'), reverse=True)
 
     return render(request, 'OlimpiColombiaApp/calendar.html',{'athlete': athlete, 'sportevents': sportevents})
-
+@login_required
 def latest_video_src(request,athlete_id):
     print('Entra a latest')
     athlete = Athlete.objects.get(id=athlete_id)
