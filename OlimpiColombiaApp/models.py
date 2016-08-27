@@ -111,9 +111,10 @@ class SportEvent(models.Model):
 
         ])
 
-    #def save(self, *args, **kwargs):
-    #    if not self.result:
-    #        self.result = None
-    #    if not self.video:
-    #        self.video = None
-    #    super(SportEvent, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.result:
+            self.result = None
+        if not self.video:
+            self.video = None
+        super(SportEvent, self).save(*args, **kwargs)
+
