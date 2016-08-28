@@ -85,18 +85,18 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 
 ####Production
-DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE_URL'))}
+#DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE_URL'))}
 
 
 #####Developement
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'OlimpiColombia',
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
-#}
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       'NAME': 'OlimpiColombia',
+       'HOST': 'localhost',
+       'PORT': '',
+   }
+}
 
 
 # Password validation
@@ -144,17 +144,21 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 #AWS_QUERYSTRING_AUTH = False
 #AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
 
-DEFAULT_FILE_STORAGE = os.environ.get('DEFAULTFILES_STORAGE')
-DEFAULT_S3_PATH = 'media'
-STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
-STATIC_S3_PATH = 'static'
-
-MEDIA_ROOT = '/media/'
-MEDIA_URL = os.environ.get('MEDIA_URL')
-STATIC_ROOT = '/static/'
-STATIC_URL = os.environ.get('STATIC_URL')
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+# DEFAULT_FILE_STORAGE = os.environ.get('DEFAULTFILES_STORAGE')
+# DEFAULT_S3_PATH = 'media'
+# STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
+# STATIC_S3_PATH = 'static'
+#
+# MEDIA_ROOT = '/media/'
+# MEDIA_URL = os.environ.get('MEDIA_URL')
+# STATIC_ROOT = '/static/'
+# STATIC_URL = os.environ.get('STATIC_URL')
+# ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+#Redirect after login
+LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/logged_out'

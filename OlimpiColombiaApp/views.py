@@ -1,10 +1,11 @@
 from operator import attrgetter
-
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import render
-
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect, HttpResponse
 ## Models
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -19,19 +20,22 @@ def index(request):
     sports = Sport.objects.order_by(('name'))
     return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
 
+def logout(request):
+    return render(request, 'OlimpiColombiaApp/logged_out.html',)
+
+@login_required
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
     athletes = Athlete.objects.filter(sport=this_sport.id)
     return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
-
-
+@login_required
 def calendar(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
     sportevents = athlete.sportevent_set.all()
     sportevents = sorted(sportevents, key=attrgetter('date', 'time'), reverse=True)
 
     return render(request, 'OlimpiColombiaApp/calendar.html',{'athlete': athlete, 'sportevents': sportevents})
-
+@login_required
 def latest_video_src(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
     sportevents = athlete.sportevent_set.all()
