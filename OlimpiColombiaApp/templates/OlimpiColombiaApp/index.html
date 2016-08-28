@@ -57,11 +57,11 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li><a class="glyphicon glyphicon-user">{{user.username}}</a></li>
-                    <li><a class="glyphicon glyphicon-user">Logout</a></li>
+                    <li><a class="glyphicon glyphicon-user" href="{% url 'index' %}">{{user.username}}</a></li>
+                    <li><a class="glyphicon glyphicon-user" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li><a href="{% url 'register' %}">Sign up</a></li>
-                    <li><a class="glyphicon glyphicon-user"></a>Login</li>
+                    <li><a class="glyphicon glyphicon-user" href="{% url 'login' %}"></a>Login</li>
                     {% endif %}
                 </ul>
             </div>

@@ -1,14 +1,11 @@
 from operator import attrgetter
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, HttpResponse
-## Models
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 
 from .forms import StudentUserForm
 from .models import *
@@ -28,6 +25,7 @@ def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
     athletes = Athlete.objects.filter(sport=this_sport.id)
     return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
+
 @login_required
 def calendar(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
@@ -35,6 +33,7 @@ def calendar(request,athlete_id):
     sportevents = sorted(sportevents, key=attrgetter('date', 'time'), reverse=True)
 
     return render(request, 'OlimpiColombiaApp/calendar.html',{'athlete': athlete, 'sportevents': sportevents})
+
 @login_required
 def latest_video_src(request,athlete_id):
     athlete = Athlete.objects.get(id=athlete_id)
