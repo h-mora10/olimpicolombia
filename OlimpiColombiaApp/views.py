@@ -7,6 +7,7 @@ from django.shortcuts import render
 
 ## Models
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import StudentUserForm
 from .models import *
@@ -41,18 +42,18 @@ def latest_video_src(request,athlete_id):
     return JsonResponse({'video_url': str("")})
 
 def register_student(request):
+
     if request.method == 'POST':
         form = StudentUserForm(request.POST)
         if form.is_valid():
-            cleaned_data = form.cleaned_data
-            username = form.cleaned_data.get['username']
-            first_name = form.cleaned_data.get['first_name']
-            last_name = form.cleaned_data.get['last_name']
-            password = form.cleaned_data.get['password']
-            email = cleaned_data.data.get['email']
+            username = form.cleaned_data.get('username')
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            password = form.cleaned_data.get('password')
+            email = form.cleaned_data.get('email')
 
             user_model = User.objects.create_user(username=username, password=password)
-            user_model.fisrt_name = first_name
+            user_model.first_name = first_name
             user_model.last_name = last_name
             user_model.email = email
             user_model.save()
