@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^sport/(?P<sport_id>\w+)/$', views.sport, name='sport'),
     url(r'^calendar/athlete/(?P<athlete_id>\w+)/$',views.calendar, name='calendar'),
     url(r'^calendar/athlete/video/(?P<athlete_id>\w+)/$',views.latest_video_src, name='latestVideo'),
+    url(r'^accounts/registration/$', views.register_student, name='register'),
 ]
