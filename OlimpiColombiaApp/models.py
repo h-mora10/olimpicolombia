@@ -30,6 +30,8 @@ class Sport(models.Model):
     )
     img_url = models.ImageField(
         null=True,
+        upload_to='sports',
+        max_length=1000,
     )
 
     def __str__(self):
@@ -42,6 +44,8 @@ class Sport(models.Model):
 class Athlete(models.Model):
     img_url = models.ImageField(
         null=True,
+        upload_to='athletes',
+        max_length=1000,
     )
     sport = models.ForeignKey(Sport)
     first_name = models.CharField(
@@ -71,13 +75,13 @@ class Athlete(models.Model):
 
         return ' '.join([
             self.first_name,
-            self.last_name,
+            self.last_name + ' - ',
             self.sport.name,
         ])
 
 
 class SportEvent(models.Model):
-    athletes = models.ManyToManyField(Athlete, blank=True, null=True)
+    athletes = models.ManyToManyField(Athlete, blank=True)
 
     date = models.DateField()
     time = models.TimeField()
@@ -93,13 +97,18 @@ class SportEvent(models.Model):
     video = models.FileField(
         null=True,
         blank=True,
+        upload_to='events',
+        max_length=1000,
     )
 
     def __str__(self):
 
         return ' '.join([
-            '{:%m/%d/%Y}'.format(self.date),
-            self.sport_event
+            '{:%m/%d/%Y}'.format(self.date) + ' ',
+            '{:%H:%M:%S}'.format(self.time) + ' - ',
+            self.sport.name + ' - ',
+            self.sport_event,
+
         ])
 
     def save(self, *args, **kwargs):
@@ -108,3 +117,4 @@ class SportEvent(models.Model):
         if not self.video:
             self.video = None
         super(SportEvent, self).save(*args, **kwargs)
+
