@@ -25,8 +25,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = [
     '*',
@@ -88,10 +87,13 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 if os.environ.get('DJANGO_ENV') == 'production':
 
+    DEBUG = False
     DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE_URL'))}
 else:
     # SETUP LOCAL SETTINGS
 
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
     #####Developement
     DATABASES = {
         'default': {
