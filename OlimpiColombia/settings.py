@@ -89,14 +89,14 @@ DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE
 
 
 #####Developement
-#DATABASES = {
+# DATABASES = {
 #   'default': {
 #       'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #       'NAME': 'OlimpiColombia',
 #       'HOST': 'localhost',
 #       'PORT': '',
 #   }
-#}
+# }
 
 
 # Password validation
@@ -160,5 +160,6 @@ STATICFILES_DIRS = [
 ]
 
 #Redirect after login
-LOGIN_REDIRECT_URL='index'
-LOGOUT_REDIRECT_URL='logged_out'
+LOGIN_REDIRECT_URL = 'index'
+
+LOGOUT_REDIRECT_URL = 'logged_out'
