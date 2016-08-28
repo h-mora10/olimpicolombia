@@ -49,7 +49,7 @@
   function createUserByFacebook(response) {
 
      FB.api('/me', function(response) {
-        
+        JSON.stringify(response);
     });
   }
 
