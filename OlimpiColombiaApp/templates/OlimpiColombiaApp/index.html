@@ -28,21 +28,6 @@
 
 <body>
 <div id="fb-root"></div>
-<script> window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '964171530358798',
-      xfbml      : true,
-      version    : 'v2.7'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));</script>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -69,19 +54,15 @@
                     <li>
                         <a href="#">Contact</a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
                     <li>
-                        <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+                        <button class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState()">
+
+                        </button>
                     </li>
                 </ul>
-            </div>
-
-            <div>
-                <div
-                  class="fb-like"
-                  data-share="true"
-                  data-width="450"
-                  data-show-faces="true">
-                </div>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -137,11 +118,12 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="../../static/js/jquery.js"></script>
+    <script type="text/javascript" src="{% static "js/jquery.js"%}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
 
+    <script type="text/javascript" src="{% static "js/facebook.js" %}"></script>
 </body>
 
 </html>
