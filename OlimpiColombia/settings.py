@@ -160,5 +160,5 @@ STATICFILES_DIRS = [
 ]
 
 #Redirect after login
-LOGIN_REDIRECT_URL='/'
-LOGOUT_REDIRECT_URL='/logged_out'
+LOGIN_REDIRECT_URL='index'
+LOGOUT_REDIRECT_URL='logged_out'
