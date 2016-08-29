@@ -1,14 +1,19 @@
 from operator import attrgetter
 
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import StudentUserForm
 from .models import *
+
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
 
@@ -47,23 +52,59 @@ def latest_video_src(request,athlete_id):
 def register_student(request):
 
     if request.method == 'POST':
-        form = StudentUserForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            first_name = form.cleaned_data.get('first_name')
-            last_name = form.cleaned_data.get('last_name')
-            password = form.cleaned_data.get('password')
-            email = form.cleaned_data.get('email')
+        if request.is_ajax():
+            student = request.body
 
-            user_model = User.objects.create_user(username=username, password=password)
-            user_model.first_name = first_name
-            user_model.last_name = last_name
-            user_model.email = email
-            user_model.save()
+            password = Student.objects.make_random_password()
+            #user.set_password(password)
 
-            return HttpResponseRedirect(reverse('index'))
+            student_model = Student.objects.create_user(username=student.username,
+                                                        first_name=student.first_name,
+                                                        last_name=student.last_name,
+                                                        password=password,
+                                                        email=student.email,
+                                                        uid=student.uid)
 
+        else:
+            form = StudentUserForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                first_name = form.cleaned_data.get('first_name')
+                last_name = form.cleaned_data.get('last_name')
+                password = form.cleaned_data.get('password')
+                email = form.cleaned_data.get('email')
+
+                student_model = Student.objects.create_user(username=username, password=password)
+                student_model.first_name = first_name
+                student_model.last_name = last_name
+                student_model.email = email
+                student_model.save()
+
+                return HttpResponseRedirect(reverse('index'))
     else:
         form = StudentUserForm()
 
     return render(request, 'OlimpiColombiaApp/register.html',{'form':form})
+
+def show_student_by_uid(request,student_uid):
+    student = Student.objects.get(uid=student_uid)
+    if student:
+        if student.username and student.password:
+            # Test username/password combination
+            student_valid = authenticate(username=student.username, password=student.password)
+            # Found a match
+            if student_valid is not None:
+                # Officially log the user in
+                login(request, student_valid)
+                data = {'success': True}
+                return JsonResponse(data)
+            else:
+                return HttpResponseForbidden()
+        else:
+            # Request method is not POST or one of username or password is missing
+            return HttpResponseBadRequest()
+    else:
+        return HttpResponseNotFound()
+
+
+
