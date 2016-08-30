@@ -48,9 +48,7 @@ function statusChangeCallback(response) {
 
 function createUserByFacebook(response) {
 
-    FB.api('/me', function(response) {
-        JSON.stringify(response);
-        alert("Ingreso"+response.id);
+    FB.api('/me',{fields: 'id,name,first_name,last_name,email'}, function(response) {
 
         $.ajax({
             method: "GET",
@@ -68,16 +66,51 @@ function createUserByFacebook(response) {
                             },
                             404: function() {
                                 console.log( "page not found" );
+                                var csrftoken = getCookie('csrftoken');
                                 $.ajax({
-                                method:"POST",
-                                url: "accounts/registration/",
-
+                                     beforeSend: function(xhr, settings) {
+                                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                                        }
+                                    },
+                                    method:"POST",
+                                    url: "accounts/registration/",
+                                    data: JSON.stringify(response)
+                                })
+                                .done(function (response) {
+                                    alert ("registro exitoso")
+                                })
+                                .fail(function (response) {
+                                    alert ("falló registro")
                                 })
                             }
                         }
         })
-        alert("Url"+url);
     });
 }
+
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
 
 
