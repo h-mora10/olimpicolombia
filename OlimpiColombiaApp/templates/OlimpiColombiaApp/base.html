@@ -10,9 +10,8 @@
     <title>OlimpiColombia</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Bootstrap Core CSS -->
+
+
 
     <!-- Custom CSS -->
     <link href="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/static/css/4-col-portfolio.css"rel="stylesheet">
@@ -52,6 +51,9 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+                    </li>
                     {% if user.is_authenticated %}
                     <li><a class="glyphicon glyphicon-user" href="{% url 'index' %}">{{user.username}}</a></li>
                     <li><a class="glyphicon glyphicon-user" href="{% url 'logout' %}">Logout</a></li>
@@ -77,5 +79,14 @@
             <!-- /.row -->
         </footer>
 </body>
+ <!-- jQuery -->
+   <script type="text/javascript" src="{% static "js/jquery.js"%}"></script>
+
+   <!-- Bootstrap Core JavaScript -->
+   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
+
+   <script type="text/javascript" src="{% static "js/facebook.js" %}"></script>
+    <!-- Bootstrap Core CSS -->
+
 
 </html>
