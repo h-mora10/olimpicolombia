@@ -89,12 +89,14 @@ DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE
 
 
 #####Developement
-# DATABASES = {
+#DATABASES = {
 #   'default': {
 #       'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #       'NAME': 'OlimpiColombia',
 #       'HOST': 'localhost',
-#       'PORT': '',
+#       'PORT': '5432',
+#        'USER': 'postgres',
+#        'PASSWORD': 'julpipe06',
 #   }
 # }
 
