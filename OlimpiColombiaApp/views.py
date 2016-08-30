@@ -56,14 +56,17 @@ def register_student(request):
         if request.is_ajax():
             student = json.loads(request.body.decode("utf-8"))
             password = Student.objects.make_random_password()
+            Student.get_or_set_email(student);
             #user.set_password(password)
-
             student_model = Student.objects.create_user(username=student["name"],
                                                         first_name=student["first_name"],
                                                         last_name=student["last_name"],
                                                         password=password,
                                                         email=student["email"],
                                                         uid=student["id"])
+
+            data = {'success': True}
+            return JsonResponse(data)
 
         else:
             form = StudentUserForm(request.POST)

@@ -125,8 +125,16 @@ class Student (AbstractUser):
 
     uid=models.CharField(blank = True, max_length=500)
 
-    # class Meta:
-    #    db_table = 'auth_user'
+    @classmethod
+    def get_or_set_email(cls, student):
+        email = "@facebook.com"
+        try:
+            email = student["email"]
+        except KeyError:
+            email = student["id"]+email
+        finally:
+            student["email"] = email
+        # do something with the book
 
 
 
