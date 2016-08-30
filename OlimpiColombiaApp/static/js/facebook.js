@@ -62,7 +62,7 @@ function createUserByFacebook(response) {
                                 console.log( "page bad request" );
                             },
                             403: function() {
-                                console.log( "page response forbidden" );
+                                alert ("Acceso Prohibido")
                             },
                             404: function() {
                                 console.log( "page not found" );
@@ -79,6 +79,8 @@ function createUserByFacebook(response) {
                                 })
                                 .done(function (response) {
                                     alert ("registro exitoso")
+                                    location.reload()
+
                                 })
                                 .fail(function (response) {
                                     alert ("falló registro")
