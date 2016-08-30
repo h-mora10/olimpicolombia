@@ -13,6 +13,7 @@ from .models import *
 
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseBadRequest
+import json
 from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
@@ -53,17 +54,16 @@ def register_student(request):
 
     if request.method == 'POST':
         if request.is_ajax():
-            student = request.body
-
+            student = json.loads(request.body.decode("utf-8"))
             password = Student.objects.make_random_password()
             #user.set_password(password)
 
-            student_model = Student.objects.create_user(username=student.username,
-                                                        first_name=student.first_name,
-                                                        last_name=student.last_name,
+            student_model = Student.objects.create_user(username=student["name"],
+                                                        first_name=student["first_name"],
+                                                        last_name=student["last_name"],
                                                         password=password,
-                                                        email=student.email,
-                                                        uid=student.uid)
+                                                        email=student["email"],
+                                                        uid=student["id"])
 
         else:
             form = StudentUserForm(request.POST)
@@ -86,8 +86,9 @@ def register_student(request):
 
     return render(request, 'OlimpiColombiaApp/register.html',{'form':form})
 
+
 def show_student_by_uid(request,student_uid):
-    student = Student.objects.get(uid=student_uid)
+    student = Student.objects.filter(uid=student_uid).first()
     if student:
         if student.username and student.password:
             # Test username/password combination
