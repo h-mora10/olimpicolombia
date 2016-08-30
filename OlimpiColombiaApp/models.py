@@ -126,6 +126,14 @@ class Student (AbstractUser):
     uid=models.CharField(blank = True, max_length=500)
 
     @classmethod
+    def authenticate(cls, token=None):
+        try:
+            student = Student.objects.get(uid=token)
+            return student
+        except Student.DoesNotExist:
+            return None
+
+    @classmethod
     def get_or_set_email(cls, student):
         email = "@facebook.com"
         try:

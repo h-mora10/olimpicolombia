@@ -65,8 +65,15 @@ def register_student(request):
                                                         email=student["email"],
                                                         uid=student["id"])
 
-            data = {'success': True}
-            return JsonResponse(data)
+            student_valid = Student.authenticate(token=student_model.uid)
+
+            if student_valid is not None:
+                # Officially log the user in
+                login(request, student_valid)
+                data = {'success': True}
+                return JsonResponse(data)
+            else:
+                return HttpResponseForbidden()
 
         else:
             form = StudentUserForm(request.POST)
@@ -95,7 +102,7 @@ def show_student_by_uid(request,student_uid):
     if student:
         if student.username and student.password:
             # Test username/password combination
-            student_valid = authenticate(username=student.username, password=student.password)
+            student_valid = Student.authenticate(token=student_uid)
             # Found a match
             if student_valid is not None:
                 # Officially log the user in
