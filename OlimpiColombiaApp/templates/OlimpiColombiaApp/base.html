@@ -24,6 +24,8 @@
 </head>
 <body>
 <!-- Navigation -->
+{% load static %}
+<script type="text/javascript" src="{% static "js/facebook.js" %}"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -52,8 +54,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    {% csrf_token %}
-                    <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+                    <button class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState()">
+
+                   </button>{% csrf_token %}
                 </li>
                 {% if user.is_authenticated %}
                     <li><a class="glyphicon glyphicon-user" href="{% url 'index' %}">{{user.username}}</a></li>
@@ -87,7 +90,6 @@
 <!-- Bootstrap Core JavaScript -->
 <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
 
-<script type="text/javascript" src="{% static "js/facebook.js" %}"></script>
 <!-- Bootstrap Core CSS -->
 
 

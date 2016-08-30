@@ -48,7 +48,7 @@ function statusChangeCallback(response) {
 
 function createUserByFacebook(response) {
 
-    FB.api('/me',{fields: 'id,name,first_name,last_name,email'}, function(response) {
+    FB.api('/me',{fields: 'name,first_name,last_name,email'}, function(response) {
 
         $.ajax({
             method: "GET",
