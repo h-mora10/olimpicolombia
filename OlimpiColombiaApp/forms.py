@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
+
+from .models import Student
 
 
 class StudentUserForm(ModelForm):
@@ -25,7 +26,7 @@ class StudentUserForm(ModelForm):
     )
 
     class Meta:
-        model = User
+        model = Student
         fields = ['username', 'password', 'password2', 'email', 'first_name', 'last_name']
 
     def __init__(self, *args, **kwargs):
@@ -65,7 +66,7 @@ class StudentUserForm(ModelForm):
     def clean_username(self):
         #verifica si el usuario existe en la base de datos
         username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username):
+        if Student.objects.filter(username=username):
             raise forms.ValidationError('El nombre de usuario ya está registrado. Por favor elija otro.')
         return username
 
@@ -80,7 +81,7 @@ class StudentUserForm(ModelForm):
     def clean_email(self):
         #verifica si el email existe en la base de datos
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email):
+        if Student.objects.filter(email=email):
             raise forms.ValidationError('El email ingresado ya está registrado. Por favor elija otro.')
         return email
 
