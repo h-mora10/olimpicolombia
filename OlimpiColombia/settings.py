@@ -23,10 +23,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's-2+4#njn*tl_1v@n^tj@^4)_i#w4e5zo0_sau_01+nlrk0+q$'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
 
 ALLOWED_HOSTS = [
     '*',
@@ -85,18 +84,28 @@ WSGI_APPLICATION = 'OlimpiColombia.wsgi.application'
 
 
 ####Production
-DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE_URL'))}
+
+if os.environ.get('DJANGO_ENV') == 'production':
+
+    DEBUG = False
+    DATABASES = {'default': dj_database_url.config(default= os.environ.get('DATABASE_URL'))}
+else:
+    # SETUP LOCAL SETTINGS
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    #####Developement
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'OlimpiColombia',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
-#####Developement
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'OlimpiColombia',
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
-#}
+
 
 
 # Password validation
@@ -136,25 +145,37 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 #STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
-# AWS S3 Credentials
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-#AWS_PRELOAD_METADATA = True
-#AWS_QUERYSTRING_AUTH = False
-#AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
+if os.environ.get( 'DJANGO_ENV' ) == 'production':
+    # AWS S3 Credentials
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    # AWS_PRELOAD_METADATA = True
+    # AWS_QUERYSTRING_AUTH = False
+    # AWS_S3_HOST = os.environ.get('AWS_S3_HOST')
 
-DEFAULT_FILE_STORAGE = os.environ.get('DEFAULTFILES_STORAGE')
-DEFAULT_S3_PATH = 'media'
-STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
-STATIC_S3_PATH = 'static'
+    DEFAULT_FILE_STORAGE = os.environ.get('DEFAULTFILES_STORAGE')
+    DEFAULT_S3_PATH = 'media'
+    STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE')
+    STATIC_S3_PATH = 'static'
 
-MEDIA_ROOT = '/media/'
-MEDIA_URL = os.environ.get('MEDIA_URL')
-STATIC_ROOT = '/static/'
-STATIC_URL = os.environ.get('STATIC_URL')
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+    MEDIA_ROOT = '/media/'
+    MEDIA_URL = os.environ.get('MEDIA_URL')
+    STATIC_ROOT = '/static/'
+    STATIC_URL = os.environ.get('STATIC_URL')
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+else:
+    # SETUP LOCAL SETTINGS
+    STATIC_URL = '/static/'
+
+
+#Redirect after login
+LOGIN_REDIRECT_URL = 'index'
+
+LOGOUT_REDIRECT_URL = 'logged_out'
+
+AUTH_USER_MODEL= 'OlimpiColombiaApp.Student'
