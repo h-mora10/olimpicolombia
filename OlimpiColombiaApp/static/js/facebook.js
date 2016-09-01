@@ -40,11 +40,30 @@ function statusChangeCallback(response) {
      document.getElementById('status').innerHTML = 'Please log ' +
      'into this app.';
      } */else {
+
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        alert("Por favor ingrese sus credenciales");
+        window.location.href="/logout";
     }
 }
+
+function checkFacebookLogin(){
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+               console.log("fb");
+                            document.getElementById("normalLogoutButton").style.visibility="hidden";
+
+        }
+        else {
+               console.log("Normal");
+                            document.getElementById("containerLi").style.display="none";
+                            document.getElementById("facebookLoginButton").style.display="none";
+
+        }
+    })
+}
+
 
 function createUserByFacebook(response) {
 
@@ -79,7 +98,7 @@ function createUserByFacebook(response) {
                                 })
                                 .done(function (response) {
                                     alert ("registro exitoso")
-                                    location.reload()
+                                    location.href="/"
 
                                 })
                                 .fail(function (response) {
