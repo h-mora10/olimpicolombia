@@ -38,7 +38,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="/">Home</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,17 +54,27 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState()">
+                <li id="containerLi">
+
+                    <button id="facebookLoginButton" class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState()">
 
                    </button>{% csrf_token %}
                 </li>
                 {% if user.is_authenticated %}
+                    <script>
+                    window.onload = function(){
+                        console.log("Papitas");
+                        checkFacebookLogin()
+                    }
+
+                    </script>
+
                     <li><a class="glyphicon glyphicon-user" href="{% url 'index' %}">{{user.username}}</a></li>
-                    <li><a class="glyphicon glyphicon-user" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a id="normalLogoutButton" class="glyphicon glyphicon-user" href="{% url 'logout' %}">Logout</a></li>
+
                 {% else %}
-                    <li><a href="{% url 'register' %}">Sign up</a></li>
-                    <li><a class="glyphicon glyphicon-user" href="{% url 'login' %}"></a>Login</li>
+                    <li><a id="registerButton" href="{% url 'register' %}">Sign up</a></li>
+                    <li><a id="normalLoginButton" class="glyphicon glyphicon-user" href="{% url 'login' %}"></a>Login</li>
                 {% endif %}
             </ul>
         </div>
