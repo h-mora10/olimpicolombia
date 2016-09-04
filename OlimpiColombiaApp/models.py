@@ -78,6 +78,19 @@ class Athlete(models.Model):
         today = date.today()
         return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
 
+
+    def as_dict(self):
+        return {
+            "sport": self.name,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birth_place": self.birth_place,
+            "birth_date": self.birth_place,
+            "weight": self.weight,
+            "height": self.height,
+            "coach": self.coach,
+    }
+
     def __str__(self):
 
         return ' '.join([

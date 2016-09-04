@@ -31,8 +31,13 @@ def logout(request):
 @login_required
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
+    dict_sport = this_sport.as_dict()
+
     athletes = Athlete.objects.filter(sport=this_sport.id)
-    return JsonResponse(athletes)
+    dict_athletes = [athlete.as_dict() for athlete in athletes]
+
+    return JsonResponse({'sport': dict_sport, 'athletes': dict_athletes}, safe=False)
+
 
 @login_required
 def calendar(request,athlete_id):
