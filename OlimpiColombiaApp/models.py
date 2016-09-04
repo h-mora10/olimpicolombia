@@ -35,6 +35,12 @@ class Sport(models.Model):
         max_length=1000,
     )
 
+    def as_dict(self):
+        return {
+            "name": self.name,
+            "img_url": str(self.img_url)
+        }
+
     def __str__(self):
 
         return ' '.join([

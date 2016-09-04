@@ -14,14 +14,16 @@ from .models import *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseBadRequest
 import json
-from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 
 # Create your views here.
 
 def index(request):
     #ToDo write a seed file
     sports = Sport.objects.order_by(('name'))
-    return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
+    dict_sport = [sport.as_dict() for sport in sports]
+
+    return JsonResponse({'sports': dict_sport}, safe=False)
 
 def logout(request):
     return render(request, 'OlimpiColombiaApp/logged_out.html',)
@@ -30,7 +32,7 @@ def logout(request):
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
     athletes = Athlete.objects.filter(sport=this_sport.id)
-    return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
+    return JsonResponse(athletes)
 
 @login_required
 def calendar(request,athlete_id):
