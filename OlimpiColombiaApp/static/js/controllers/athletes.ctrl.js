@@ -8,6 +8,7 @@
             $scope.athletesRecords = [];
 
             this.fetchRecords = function () {
+                 //TODO falta pasar el id
                 return svc.fetchRecordsBySport().then(function (response) {
                     $scope.athletesRecords = response.data;
 

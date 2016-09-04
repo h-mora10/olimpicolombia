@@ -5,11 +5,12 @@
     var mod = ng.module('sportsModule');
 
     mod.controller('SportsCtrl', ['$scope', 'sportsService', function ($scope, svc) {
-            $scope.sportsRecorts = [];
+            $scope.sportsRecords = [];
 
             this.fetchRecords = function () {
+
                 return svc.fetchRecords().then(function (response) {
-                    $scope.sportsRecorts = response.data;
+                    $scope.sportsRecords = response.data.sports;
 
                     return response;
                 });

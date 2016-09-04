@@ -13,8 +13,8 @@
                 console.log(context);
                 return $http.get(context);
             };
-            this.fetchRecordsBySport = function(sport){
-                return $http.get(context+"/sport/"+sport)     //TODO <--- no estoy muy seguro de este cuando definamos apis corregimos
+            this.fetchRecordsBySport = function(sportId){
+                return $http.get("/sport/"+sportId)     //TODO <--- no estoy muy seguro de este cuando definamos apis corregimos
             }
             this.fetchRecord = function (id) {
                 return $http.get(context + "/" + id);
