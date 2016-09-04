@@ -15,7 +15,11 @@ class Coach(models.Model):
         max_length=255,
 
     )
-
+    def as_dict(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name
+        }
     def __str__(self):
         return ' '.join([
             self.first_name,
@@ -81,14 +85,14 @@ class Athlete(models.Model):
 
     def as_dict(self):
         return {
-            "sport": self.name,
+            "sport": self.sport.as_dict(),
             "first_name": self.first_name,
             "last_name": self.last_name,
             "birth_place": self.birth_place,
             "birth_date": self.birth_place,
             "weight": self.weight,
             "height": self.height,
-            "coach": self.coach,
+            "coach": self.coach.as_dict()
     }
 
     def __str__(self):
