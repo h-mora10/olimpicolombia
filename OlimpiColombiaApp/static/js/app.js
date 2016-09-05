@@ -4,7 +4,8 @@
 var OlimpiColombiaApp = angular.module('OlimpiColombiaApp', [
     'ngRoute',
     'sportsModule',
-    'athletesModule'
+    'athletesModule',
+    'ngCookies'
 ]);
 
 OlimpiColombiaApp.config([ '$routeProvider',

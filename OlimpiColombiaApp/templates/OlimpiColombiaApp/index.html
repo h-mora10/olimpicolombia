@@ -19,11 +19,10 @@
         </div>
         <!-- /.row -->
             <!-- Angular -->
-            <div class="container" ng-controller="SportsCtrl as sportsCtrl">
-
+            <div class="container" ng-controller="SportsCtrl">
                 <div ng-repeat="sport in sportsRecords">
                     <div class="col-md-4 col-sm-6 col-lg-3 well">
-                        <a href='/sport/{{ sport.id }}'>
+                        <a href='/sport/{{ sport.id }}' ng-click = "setActualSport({{ sport.id }});">
                             <div class="col-md-3 portfolio-item">
 
                                 <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{sport.img_url}}" alt="{{ sport.name }}">
@@ -35,11 +34,8 @@
 
                     </div>
                 </div>
-            </div>
-        <!-- Projects Row -->
-
-         {% for sport in sports %}
-                <a href='/sport/{{ sport.id }}'>
+                {% for sport in sports %}
+                <a href='/sport/{{ sport.id }}' ng-click = "setActualSport({{ sport.id }});">
                 <div class="col-md-3 portfolio-item">
 
                         <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{sport.img_url}}" alt="{{ sport.name }}">
@@ -51,6 +47,11 @@
              {% empty %}
                  <li>No sports found</li>
          {% endfor %}
+            </div>
+
+        <!-- Projects Row -->
+
+
 
 
         <!-- /.row -->

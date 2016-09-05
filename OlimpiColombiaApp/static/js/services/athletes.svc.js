@@ -14,6 +14,7 @@
                 return $http.get(context);
             };
             this.fetchRecordsBySport = function(sportId){
+                console.log("Mira el api "+sportId);
                 return $http.get("/sport/"+sportId)     //TODO <--- no estoy muy seguro de este cuando definamos apis corregimos
             }
             this.fetchRecord = function (id) {

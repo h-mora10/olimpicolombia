@@ -30,7 +30,7 @@ def logout(request):
 def sport(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
     athletes = Athlete.objects.filter(sport=this_sport.id)
-    return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
+    return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes})
 
 @login_required
 def calendar(request,athlete_id):

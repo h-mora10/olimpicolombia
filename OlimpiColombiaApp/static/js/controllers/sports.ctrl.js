@@ -4,9 +4,8 @@
 (function (ng) {
     var mod = ng.module('sportsModule');
 
-    mod.controller('SportsCtrl', ['$scope', 'sportsService', function ($scope, svc) {
+    mod.controller('SportsCtrl', ['$cookies','$scope', 'sportsService', function ($cookies,$scope, svc) {
             $scope.sportsRecords = [];
-
             this.fetchRecords = function () {
 
                 return svc.fetchRecords().then(function (response) {
@@ -17,5 +16,10 @@
             };
 
             this.fetchRecords();
+        $scope.setActualSport = function(sportId) {
+            console.log("Este entra:"+sportId);
+                  $cookies.put('sport',sportId)  ;
+            console.log($cookies.get('sport'));
+                }
         }]);
 })(window.angular);

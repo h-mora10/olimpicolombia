@@ -10,63 +10,111 @@
 <!-- Page Content -->
 <div class="container">
 
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">{{ sport }}</h1>
-        </div>
-    </div>
-    <!-- /.row -->
+<!-- Angular -->
+            <div class="container" ng-controller="AthletesCtrl as athletesCtrl">
+                <!-- Page Heading -->
+            {% verbatim %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">{{ sport.name }}</h1>
+                        </div>
+                    </div>
+            {% endverbatim %}
+                    <!-- /.row -->
+                <div ng-repeat="athlete in athletesRecords">
+                    <div class="col-md-12 portfolio-item">
+                        <div class="col-md-3 portfolio-item">
+                            <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{athlete.img_url}}" alt="{{ athlete.first_name }}">
+                            <h4>{{ athlete.first_name  }} {{ athlete.last_name }}</h4>
+                        </div>
+                        <div class="col-md-3 portfolio-item">
+                            <p>Origin: {{ athlete.birth_place }}</p>
+                            <p>Birth date:{{ athlete.birth_date }}</p>
+                            <p>Weight: {{ athlete.weight }}</p>
+                            <p>Height: {{ athlete.height }}</p>
 
-    <!-- Projects Row -->
+                        </div>
+                        <div class="col-md-6 portfolio-item">
+                            <h5>Latest Highlights</h5>
+                            <video class="videocontainer" width="320" height="240" controls>
+                                <source class="videosource" src=""/>
+                            </video>
 
-    {% for athlete in athletes %}
+                            <script>
+                                $.ajax({
+                                    async:false,
+                                    url: "/calendar/athlete/video/{{athlete.id}}/",
+                                    dataType: "json",
+                                    success: function(data){
+                                        var srcCont = document.getElementsByClassName('videosource')[{{ forloop.counter0 }}];
+                                        srcCont.src = 'https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/' + data.video_url;
+                                        var vidCont = document.getElementsByClassName('videocontainer')[{{ forloop.counter0 }}];
+                                        vidCont.load();
+                                    },
+                                 });
 
-    <div class="col-md-12 portfolio-item">
-        <div class="col-md-3 portfolio-item">
-            <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{athlete.img_url}}" alt="{{ athlete.first_name }}">
-            <h4>{{ athlete.first_name  }} {{ athlete.last_name }}</h4>
-        </div>
-        <div class="col-md-3 portfolio-item">
-            <p>Origin: {{ athlete.birth_place }}</p>
-            <p>Birth date:{{ athlete.birth_date }}</p>
-            <p>Weight: {{ athlete.weight }}</p>
-            <p>Height: {{ athlete.height }}</p>
+                            </script>
 
-        </div>
-        <div class="col-md-6 portfolio-item">
-            <h5>Latest Highlights</h5>
-            <video class="videocontainer" width="320" height="240" controls>
-                <source class="videosource" src=""/>
-            </video>
+                            <div>
+                                <a href="/calendar/athlete/{{athlete.id}}/">
+                                    <button  type="button" class="btn btn-sm btn-primary">Calendario</button>
+                                </a>
+                            </div>
+                        </div>
 
-            <script>
-                $.ajax({
-                    async:false,
-                    url: "/calendar/athlete/video/{{athlete.id}}/",
-                    dataType: "json",
-                    success: function(data){
-                        var srcCont = document.getElementsByClassName('videosource')[{{ forloop.counter0 }}];
-                        srcCont.src = 'https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/' + data.video_url;
-                        var vidCont = document.getElementsByClassName('videocontainer')[{{ forloop.counter0 }}];
-                        vidCont.load();
-                    },
-                 });
+                    </div>
+                </div>
+                    <!-- Projects Row -->
 
-            </script>
 
-            <div>
-                <a href="/calendar/athlete/{{athlete.id}}/">
-                    <button  type="button" class="btn btn-sm btn-primary">Calendario</button>
-                </a>
+                    {% for athlete in athletes %}
+
+                    <div class="col-md-12 portfolio-item">
+                        <div class="col-md-3 portfolio-item">
+                            <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{athlete.img_url}}" alt="{{ athlete.first_name }}">
+                            <h4>{{ athlete.first_name  }} {{ athlete.last_name }}</h4>
+                        </div>
+                        <div class="col-md-3 portfolio-item">
+                            <p>Origin: {{ athlete.birth_place }}</p>
+                            <p>Birth date:{{ athlete.birth_date }}</p>
+                            <p>Weight: {{ athlete.weight }}</p>
+                            <p>Height: {{ athlete.height }}</p>
+
+                        </div>
+                        <div class="col-md-6 portfolio-item">
+                            <h5>Latest Highlights</h5>
+                            <video class="videocontainer" width="320" height="240" controls>
+                                <source class="videosource" src=""/>
+                            </video>
+
+                            <script>
+                                $.ajax({
+                                    async:false,
+                                    url: "/calendar/athlete/video/{{athlete.id}}/",
+                                    dataType: "json",
+                                    success: function(data){
+                                        var srcCont = document.getElementsByClassName('videosource')[{{ forloop.counter0 }}];
+                                        srcCont.src = 'https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/' + data.video_url;
+                                        var vidCont = document.getElementsByClassName('videocontainer')[{{ forloop.counter0 }}];
+                                        vidCont.load();
+                                    },
+                                 });
+
+                            </script>
+
+                            <div>
+                                <a href="/calendar/athlete/{{athlete.id}}/">
+                                    <button  type="button" class="btn btn-sm btn-primary">Calendario</button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {% empty %}
+                    <li>No athletes found</li>
+                    {% endfor %}
             </div>
-        </div>
-
-    </div>
-
-    {% empty %}
-    <li>No athletes found</li>
-    {% endfor %}
 
 
 
