@@ -9,6 +9,7 @@
             this.fetchRecords = function () {
 
                 return svc.fetchRecords().then(function (response) {
+                    console.log(response.data);
                     $scope.sportsRecords = response.data.sports;
 
                     return response;

@@ -4,4 +4,4 @@
 'use strict';
     var mod = angular.module('athletesModule', []);
 
-    mod.constant('athletesContext', 'api/athletes');//TODO ojo <- Cambiar url con api establecido
+    mod.constant('athletesContext', '/athletes');//TODO ojo <- Cambiar url con api establecido

@@ -22,7 +22,6 @@ def index(request):
  return render(request, 'OlimpiColombiaApp/index.html')
 
 def indexJSON(request):
-    #ToDo write a seed file
     sports = Sport.objects.order_by(('name'))
     dict_sport = [sport.as_dict() for sport in sports]
 
@@ -32,7 +31,7 @@ def logout(request):
     return render(request, 'OlimpiColombiaApp/logged_out.html',)
 
 @login_required
-def sport(request,sport_id):
+def sport(request):
     return render(request, 'OlimpiColombiaApp/sport.html')
 
 @login_required
