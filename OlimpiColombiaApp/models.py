@@ -41,6 +41,7 @@ class Sport(models.Model):
 
     def as_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
             "img_url": str(self.img_url)
         }
