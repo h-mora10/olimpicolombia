@@ -15,7 +15,11 @@ class Coach(models.Model):
         max_length=255,
 
     )
-
+    def as_dict(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name
+        }
     def __str__(self):
         return ' '.join([
             self.first_name,
@@ -34,6 +38,13 @@ class Sport(models.Model):
         upload_to='sports',
         max_length=1000,
     )
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "img_url": str(self.img_url)
+        }
 
     def __str__(self):
 
@@ -71,6 +82,20 @@ class Athlete(models.Model):
         born = self.birth_date
         today = date.today()
         return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
+
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "sport": self.sport.as_dict(),
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birth_place": self.birth_place,
+            "birth_date": self.birth_place,
+            "weight": self.weight,
+            "height": self.height,
+            "coach": self.coach.as_dict()
+    }
 
     def __str__(self):
 

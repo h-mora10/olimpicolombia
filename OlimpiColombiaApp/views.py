@@ -14,23 +14,35 @@ from .models import *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseBadRequest
 import json
-from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 
 # Create your views here.
 
 def index(request):
-    #ToDo write a seed file
+ return render(request, 'OlimpiColombiaApp/index.html')
+
+def indexJSON(request):
     sports = Sport.objects.order_by(('name'))
-    return render(request, 'OlimpiColombiaApp/index.html',{'sports': sports})
+    dict_sport = [sport.as_dict() for sport in sports]
+
+    return JsonResponse({'sports': dict_sport}, safe=False)
 
 def logout(request):
     return render(request, 'OlimpiColombiaApp/logged_out.html',)
 
 @login_required
-def sport(request,sport_id):
+def sport(request):
+    return render(request, 'OlimpiColombiaApp/sport.html')
+
+@login_required
+def sportJSON(request,sport_id):
     this_sport = Sport.objects.get(id=sport_id)
+    dict_sport = this_sport.as_dict()
+
     athletes = Athlete.objects.filter(sport=this_sport.id)
-    return render(request, 'OlimpiColombiaApp/sport.html',{'athletes':athletes,'sport':this_sport.name})
+    dict_athletes = [athlete.as_dict() for athlete in athletes]
+
+    return JsonResponse({'sport': dict_sport, 'athletes': dict_athletes}, safe=False)
 
 @login_required
 def calendar(request,athlete_id):

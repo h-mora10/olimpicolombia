@@ -13,6 +13,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
+
+     <script type="text/javascript" src="http://cdn.jsdelivr.net/restangular/latest/restangular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap.js"></script>
 
     <!-- Custom CSS -->
     <link href="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/static/css/4-col-portfolio.css"rel="stylesheet">
@@ -23,10 +29,17 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body ng-app="OlimpiColombiaApp">
 <!-- Navigation -->
 {% load static %}
 <script type="text/javascript" src="{% static "js/facebook.js" %}"></script>
+<script type="text/javascript" src="{% static "js/app.js" %}"></script>
+<script type="text/javascript" src="{% static "js/modules/athletes.mod.js" %}"></script>
+<script type="text/javascript" src="{% static "js/controllers/athletes.ctrl.js" %}"></script>
+<script type="text/javascript" src="{% static "js/services/athletes.svc.js" %}"></script>
+<script type="text/javascript" src="{% static "js/modules/sports.mod.js" %}"></script>
+<script type="text/javascript" src="{% static "js/controllers/sports.ctrl.js" %}"></script>
+<script type="text/javascript" src="{% static "js/services/sports.svc.js" %}"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
