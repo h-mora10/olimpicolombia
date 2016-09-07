@@ -19,23 +19,22 @@
         </div>
         <!-- /.row -->
             <!-- Angular -->
+            {% verbatim %}
             <div class="container" ng-controller="SportsCtrl">
                 <div ng-repeat="sport in sportsRecords">
                     <div class="col-md-4 col-sm-6 col-lg-3 well">
-                        {% verbatim %}
-                        <a href='/sport/' ng-click = "setActualSport({{ sport.id }});">
+                        <a href='/sport/' ng-click="setActualSport()" ng-value="{{ sport.id }}">
                             <div class="col-md-3 portfolio-item">
-
                                 <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{sport.img_url}}" alt="{{ sport.name }}">
 
                                 <h4>{{ sport.name  }}</h4>
                             </div>
                          </a>
-                        {% endverbatim %}
 
                     </div>
                 </div>
             </div>
+            {% endverbatim %}
 
         <!-- Projects Row -->
 
