@@ -15,7 +15,7 @@ from . import views
 urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='index'),
-    url(r'^indexJSON', views.indexJSON, name='index'),
+    url(r'^indexJSON', views.indexJSON, name='indexJSON'),
     url(r'^accounts/login/$', auth_views.login, name='account_login'),
     url(r'^sport/', views.sport, name='sport'),
     url(r'^sportJSON/(?P<sport_id>\w+)/$', views.sportJSON, name='sport'),
