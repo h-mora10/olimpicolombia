@@ -86,6 +86,7 @@ class Athlete(models.Model):
 
     def as_dict(self):
         return {
+            "id": self.id,
             "sport": self.sport.as_dict(),
             "first_name": self.first_name,
             "last_name": self.last_name,
