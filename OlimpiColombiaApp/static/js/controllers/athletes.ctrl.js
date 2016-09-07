@@ -9,7 +9,6 @@
             $scope.sport={name:"Deporte",img_url:""};
 
             this.fetchRecords = function () {
-                 //TODO falta pasar el id
                 return svc.fetchRecordsBySport($cookies.get('sport')).then(function (response) {
                     $scope.athletesRecords = response.data.athletes;
                     $scope.sport = response.data.sport;
