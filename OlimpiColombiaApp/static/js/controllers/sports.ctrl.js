@@ -15,12 +15,7 @@
                     return response;
                 });
             };
-$scope.model = [
-    {
-        caption: 'setActualSport',
-        func : 'setActualSport'
-    }
-]
+
             this.fetchRecords();
 
         $scope.setActualSport = function(sportId) {
