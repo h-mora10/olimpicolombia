@@ -22,6 +22,7 @@ $scope.model = [
     }
 ]
             this.fetchRecords();
+
         $scope.setActualSport = function(sportId) {
             console.log("Este entra:"+sportId);
             $cookies.put('sport',sportId);

@@ -36,25 +36,9 @@
                         </div>
                         <div class="col-md-6 portfolio-item">
                             <h5>Latest Highlights</h5>
-                            <video class="videocontainer" width="320" height="240" controls>
-                                <source class="videosource" src=""/>
+                            <video id = "vidcont{{ athlete.id }}"class="videocontainer" width="320" height="240" controls>
+                                <source id = "vidsource{{ athlete.id }}" class="videosource" src=""/>
                             </video>
-
-                            <script>
-                                //FIXME Esto rompe nuestra seguridad
-                               // $.ajax({
-                               //     async:false,
-                               //     url: "/calendar/athlete/video/{{athlete.id}}/",
-                               //     dataType: "json",
-                               //     success: function(data){
-                               //         var srcCont = document.getElementsByClassName('videosource')[{{ forloop.counter0 }}];
-                               //         srcCont.src = 'https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/' + data.video_url;
-                               //         var vidCont = document.getElementsByClassName('videocontainer')[{{ forloop.counter0 }}];
-                               //         vidCont.load();
-                               //     },
-                               //  });
-
-                            </script>
 
                             <div>
                                 <a href="/calendar/athlete/{{athlete.id}}/">
