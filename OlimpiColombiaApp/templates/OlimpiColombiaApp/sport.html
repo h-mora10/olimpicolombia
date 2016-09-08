@@ -1,133 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Daniel O">
-
-    <title>OlimpiColombia</title>
-
-    {% load static %}
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <!-- Bootstrap Core CSS -->
-
-    <!-- Custom CSS -->
-    <link href="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/static/css/4-col-portfolio.css"rel="stylesheet">
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="http://api.html5media.info/1.1.5/html5media.min.js"></script>
-    <![endif]-->
+{% extends "OlimpiColombiaApp/base.html" %}
+{% block content %}
 
 
 
-</head>
-
-<body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Home</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
 
 <!-- Page Content -->
 <div class="container">
 
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">{{ sport }}</h1>
-        </div>
-    </div>
-    <!-- /.row -->
+<!-- Angular -->
+{% verbatim %}
+            <div class="container" ng-controller="AthletesCtrl as athletesCtrl">
+                <!-- Page Heading -->
 
-    <!-- Projects Row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">{{ sport.name }}</h1>
+                        </div>
+                    </div>
 
-    {% for athlete in athletes %}
+                    <!-- /.row -->
+                <div ng-repeat="athlete in athletesRecords">
+                    <div class="col-md-12 portfolio-item">
+                        <div class="col-md-3 portfolio-item">
+                            <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{athlete.img_url}}" alt="{{ athlete.first_name }}">
+                            <h4>{{ athlete.first_name  }} {{ athlete.last_name }}</h4>
+                        </div>
+                        <div class="col-md-3 portfolio-item">
+                            <p>Origin: {{ athlete.birth_place }}</p>
+                            <p>Birth date:{{ athlete.birth_date }}</p>
+                            <p>Weight: {{ athlete.weight }}</p>
+                            <p>Height: {{ athlete.height }}</p>
+                        </div>
+                        <div class="col-md-6 portfolio-item">
+                            <h5>Latest Highlights</h5>
+                            <video id = "vidcont{{ athlete.id }}"class="videocontainer" width="320" height="240" controls>
+                                <source id = "vidsource{{ athlete.id }}" class="videosource" src=""/>
+                            </video>
 
-    <div class="col-md-12 portfolio-item">
-        <div class="col-md-3 portfolio-item">
-            <img class="img-responsive" src="https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/{{athlete.img_url}}" alt="{{ athlete.first_name }}">
-            <h4>{{ athlete.first_name  }} {{ athlete.last_name }}</h4>
-        </div>
-        <div class="col-md-3 portfolio-item">
-            <p>Origin: {{ athlete.birth_place }}</p>
-            <p>Birth date:{{ athlete.birth_date }}</p>
-            <p>Weight: {{ athlete.weight }}</p>
-            <p>Height: {{ athlete.height }}</p>
+                            <div>
+                                <a href="/calendar/athlete/{{athlete.id}}/">
+                                    <button  type="button" class="btn btn-sm btn-primary">Calendario</button>
+                                </a>
+                            </div>
+                        </div>
 
-        </div>
-        <div class="col-md-6 portfolio-item">
-            <h5>Latest Highlights</h5>
-            <video class="videocontainer" width="320" height="240" controls>
-                <source class="videosource" src=""/>
-            </video>
+                    </div>
+                </div>
 
-            <script>
-                $.ajax({
-                    async:false,
-                    url: "/calendar/athlete/video/{{athlete.id}}/",
-                    dataType: "json",
-                    success: function(data){
-                        var srcCont = document.getElementsByClassName('videosource')[{{ forloop.counter0 }}];
-                        srcCont.src = 'https://s3-us-west-2.amazonaws.com/olimpicolombiag4/media/' + data.video_url;
-                        var vidCont = document.getElementsByClassName('videocontainer')[{{ forloop.counter0 }}];
-                        vidCont.load();
-                    },
-                 });
+                    <!-- Projects Row -->
 
-            </script>
 
-            <div>
-                <a href="/calendar/athlete/{{athlete.id}}/">
-                    <button  type="button" class="btn btn-sm btn-primary">Calendario</button>
-                </a>
             </div>
-        </div>
-
-    </div>
-
-    {% empty %}
-    <li>No athletes found</li>
-    {% endfor %}
+            {% endverbatim %}
 
 
 
@@ -138,20 +65,10 @@
 
     </hr>
 
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; OlimpiColombia 2016</p>
-            </div>
-        </div>
-        <!-- /.row -->
-    </footer>
 
 </div>
 <!-- /.container -->
 
-
-</body>
+{% endblock %}
 
 </html>

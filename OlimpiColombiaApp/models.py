@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 from datetime import date
@@ -14,7 +15,11 @@ class Coach(models.Model):
         max_length=255,
 
     )
-
+    def as_dict(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name
+        }
     def __str__(self):
         return ' '.join([
             self.first_name,
@@ -33,6 +38,13 @@ class Sport(models.Model):
         upload_to='sports',
         max_length=1000,
     )
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "img_url": str(self.img_url)
+        }
 
     def __str__(self):
 
@@ -70,6 +82,21 @@ class Athlete(models.Model):
         born = self.birth_date
         today = date.today()
         return today.year - born.year # - ((today.month, today.day) < (born.month, born.day))
+
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "sport": self.sport.as_dict(),
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birth_place": self.birth_place,
+            "birth_date": self.birth_place,
+            "weight": self.weight,
+            "height": self.height,
+            "coach": self.coach.as_dict(),
+            "img_url":str(self.img_url)
+    }
 
     def __str__(self):
 
@@ -117,3 +144,31 @@ class SportEvent(models.Model):
         if not self.video:
             self.video = None
         super(SportEvent, self).save(*args, **kwargs)
+
+
+
+class Student (AbstractUser):
+
+    uid=models.CharField(blank = True, max_length=500)
+
+    @classmethod
+    def authenticate(cls, token=None):
+        try:
+            student = Student.objects.get(uid=token)
+            return student
+        except Student.DoesNotExist:
+            return None
+
+    @classmethod
+    def get_or_set_email(cls, student):
+        email = "@facebook.com"
+        try:
+            email = student["email"]
+        except KeyError:
+            email = student["id"]+email
+        finally:
+            student["email"] = email
+        # do something with the book
+
+
+
