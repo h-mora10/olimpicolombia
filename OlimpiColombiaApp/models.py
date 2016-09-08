@@ -94,7 +94,8 @@ class Athlete(models.Model):
             "birth_date": self.birth_place,
             "weight": self.weight,
             "height": self.height,
-            "coach": self.coach.as_dict()
+            "coach": self.coach.as_dict(),
+            "img_url":str(self.img_url)
     }
 
     def __str__(self):
