@@ -17,10 +17,12 @@
             };
 
             this.fetchRecords();
+
         $scope.setActualSport = function(sportId) {
             console.log("Este entra:"+sportId);
-                  $cookies.put('sport',sportId)  ;
+            $cookies.put('sport',sportId);
             console.log($cookies.get('sport'));
-                }
+            }
         }]);
+
 })(window.angular);
