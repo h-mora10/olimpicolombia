@@ -15,13 +15,18 @@
                     return response;
                 });
             };
-
+$scope.model = [
+    {
+        caption: 'setActualSport',
+        func : 'setActualSport'
+    }
+]
             this.fetchRecords();
-        $scope.setActualSport = function() {
-            let sportId = this.sport.id;
+        $scope.setActualSport = function(sportId) {
             console.log("Este entra:"+sportId);
             $cookies.put('sport',sportId);
             console.log($cookies.get('sport'));
             }
         }]);
+
 })(window.angular);
